@@ -3,6 +3,7 @@
 		<h1>Hojong Blog</h1>
 		<p>
 			<router-link to="/home">Home</router-link>
+			<router-link to="/timetables">TimeTables</router-link>
 			<router-link to="/posts">Posts</router-link>
 		</p>
 		<!-- route outlet -->

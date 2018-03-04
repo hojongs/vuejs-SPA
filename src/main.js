@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router';
 import App from './App.vue'
 import Home from './pages/Home.vue'
+import TimeTables from './pages/TimeTables.vue'
 import Posts from './pages/Posts.vue'
 import Post from './pages/Post.vue'
 
@@ -9,6 +10,7 @@ Vue.use(VueRouter);
 
 const routes = [
   { path: '/home', component: Home },
+  { path: '/timetables', component: TimeTables },
   { path: '/posts', component: Posts },
   { path: '/posts/:id', component: Post }
 ];

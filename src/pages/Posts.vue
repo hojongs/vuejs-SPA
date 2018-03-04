@@ -2,7 +2,8 @@
 	<div>
 		<h3>Posts</h3>
 		<ul>
-			<router-link tag='li' v-for='post in posts' :key='post.id'
+			<router-link tag='li' v-for='post in posts' 
+				:key='post.id'
 				:to='"/posts/" + post.id'>
 				<a>
 					<span class='title'>{{ post.title }}</span>
