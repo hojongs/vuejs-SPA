@@ -34,7 +34,10 @@
 		display: table;
 	}
 	.std {
-		width: 300px;
 		display: table-cell;
+	}
+	img {
+		width: 300px;
+		height: 600px;
 	}
 </style>
