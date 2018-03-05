@@ -1,7 +1,7 @@
 <template>
 	<div class='stds'>
 		<div class='std' v-for='std in students'>
-			<p>{{ std.name }}</p>
+			<h3>{{ std.name }}</h3>
 			<img :src='"/static/" + std.tb + ".jpg"' />
 		</div>
 	</div>
@@ -22,6 +22,10 @@
 					{
 						name: '김명길',
 						tb: 'kmg'
+					},
+					{
+						name: '김용우',
+						tb: 'kyy'
 					},
 				]
 			}
