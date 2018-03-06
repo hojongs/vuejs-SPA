@@ -6,7 +6,8 @@
 				<img 
 					:src='host + "/static/" + std.tb + ".jpg"'
 					:style='"height: " + std.height + "px"'
-				/>
+				/><br>
+				<input v-model='std.height'>
 			</div>
 		</div>
 		<div>
@@ -61,6 +62,6 @@
 		display: table-cell;
 	}
 	img {
-		width: 300px;
+		width: 400px;
 	}
 </style>
