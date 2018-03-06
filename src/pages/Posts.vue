@@ -16,27 +16,26 @@
 </template>
 
 <script>
+	import axios from 'axios';
+	import host from '../host';
+
 	export default {
 		data: function() {
-			return {posts: this.get_posts()};
+			return {
+				host: host,
+				posts: [],
+				errors: [],
+			};
 		},
-		methods: {
-			get_posts: function() {
-				return [
-					{
-						id: '1',
-						title: 'title1',
-						author: 'author1',
-						date: '2018-01-01',
-					},
-					{
-						id: '2',
-						title: 'title2',
-						author: 'author2',
-						date: '2018-01-02',
-					},
-				]
-			}
+		created() {
+			axios.get(host + '/rest/posts')
+			.then(response => {
+				// JSON responses are automatically parsed.
+				this.posts = response.data
+			})
+			.catch(e => {
+				this.errors.push(e)
+			});
 		},
 	};
 </script>

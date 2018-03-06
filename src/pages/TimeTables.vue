@@ -2,33 +2,32 @@
 	<div class='stds'>
 		<div class='std' v-for='std in students'>
 			<h3>{{ std.name }}</h3>
-			<img :src='"/static/" + std.tb + ".jpg"' />
+			<img :src='host + "/static/" + std.tb + ".jpg"' />
 		</div>
 	</div>
 </template>
 
 <script>
+	import axios from 'axios';
+	import host from '../host';
+
 	export default {
 		data: function() {
-			return {students: this.get_student()};
+			return {
+				host: host,
+				students: [],
+				errors: [],
+			};
 		},
-		methods: {
-			get_student: function() {
-				return [
-					{
-						name: '전종호',
-						tb: 'jjh'
-					},
-					{
-						name: '김명길',
-						tb: 'kmg'
-					},
-					{
-						name: '김용우',
-						tb: 'kyy'
-					},
-				]
-			}
+		created() {
+			axios.get(host + '/rest/students')
+			.then(response => {
+				// JSON responses are automatically parsed.
+				this.students = response.data
+			})
+			.catch(e => {
+				this.errors.push(e)
+			});
 		},
 	};
 </script>
