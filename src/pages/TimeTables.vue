@@ -1,11 +1,29 @@
 <template>
-	<div class='stds'>
-		<div class='std' v-for='std in students'>
-			<h3>{{ std.name }}</h3>
-			<img 
-				:src='host + "/static/" + std.tb + ".jpg"'
-				:style='"height: " + std.height + "px"'
-			/>
+	<div>
+		<div id='stds'>
+			<div class='std' v-for='std in students'>
+				<h3>{{ std.name }}</h3>
+				<img 
+					:src='host + "/static/" + std.tb + ".jpg"'
+					:style='"height: " + std.height + "px"'
+				/>
+			</div>
+		</div>
+		<div>
+			<h2>Insert Student</h2>
+			<form :action='host + "/rest/students"' method='post' enctype='multipart/form-data'>
+				<div>
+					name: <br>
+					<input type='text' name='name' value=''>
+				</div>
+				<div>
+					timetable: <br>
+					<input type='file' name='tb' value=''>
+				</div>
+				<div>
+					<input type="submit" value="submit">
+				</div>
+			</form>
 		</div>
 	</div>
 </template>
@@ -36,7 +54,7 @@
 </script>
 
 <style type="text/css">
-	.stds {
+	#stds {
 		display: table;
 	}
 	.std {
