@@ -2,7 +2,10 @@
 	<div class='stds'>
 		<div class='std' v-for='std in students'>
 			<h3>{{ std.name }}</h3>
-			<img :src='host + "/static/" + std.tb + ".jpg"' />
+			<img 
+				:src='host + "/static/" + std.tb + ".jpg"'
+				:style='"height: " + std.height + "px"'
+			/>
 		</div>
 	</div>
 </template>
@@ -41,6 +44,5 @@
 	}
 	img {
 		width: 300px;
-		height: 600px;
 	}
 </style>
