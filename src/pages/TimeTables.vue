@@ -11,13 +11,13 @@
 			</div>
 		</div>
 		<div>
-			<h2>Insert Student</h2>
+			<h2>Update Student TimeTable</h2>
 
-			<div v-for='field in fields_insert'>
+			<div v-for='field in fields_update'>
 				{{ field.name }} : 
-				<input :name='field.name' :type='field.type' @change='change_fields_insert'>
+				<input :name='field.name' :type='field.type' @change='change_fields_update'>
 			</div>
-			<button @click='insert(formdata_insert)'>button</button>
+			<button @click='update(formdata_update)'>button</button>
 		</div>
 	</div>
 </template>
@@ -27,31 +27,32 @@
 	import host from '../host';
 
 	export default {
-		data: function() {
+		data() {
 			return {
 				host: host,
 				students: [],
 				errors: [],
-				fields_insert: [
+				fields_update: [
 					{name: 'name', type: 'text'},
 					{name: 'tb', type: 'file'},
 					{name: 'height', type: 'text'},
 				],
-				formdata_insert: new FormData(),
+				formdata_update: new FormData(),
 			};
 		},
-		created() {
-			axios.get(host + '/rest/students')
-			.then(response => {
-				// JSON responses are automatically parsed.
-				this.students = response.data
-			})
-			.catch(e => {
-				this.errors.push(e)
-			});
-		},
+		created() { this.init(); },
 		methods: {
-			insert(data) {
+			init() {
+				axios.get(host + '/rest/students')
+				.then(response => {
+					// JSON responses are automatically parsed.
+					this.students = response.data
+				})
+				.catch(e => {
+					this.errors.push(e)
+				});
+			},
+			update(data) {
 				const config = {
 					headers: {'Content-Type': 'multipart/form-data',},
 				};
@@ -59,28 +60,29 @@
 				axios.put(host + '/rest/students', data, config)
 				.then(response => {
 					console.log(response);
+					this.init();
 				})
 				.catch(e => {
 					this.errors.push(e)
 				});
 			},
-			change_fields_insert(event) {
+			change_fields_update(event) {
 				var target = event.target;
 				
 				switch (target.type) {
 					case 'text':
-						this.formdata_insert.append(target.name, target.value);
+						this.formdata_update.append(target.name, target.value);
 						break;
 					case 'file':
 						var file = target.files[0];
-						this.formdata_insert.append(target.name, file, file.name);
+						this.formdata_update.append(target.name, file, file.name);
 						break;
 					default:
-						break;
+						throw new Error('NotImplementedError');
 				}
 
 				// debug
-				for (var pair of this.formdata_insert.entries())
+				for (var pair of this.formdata_update.entries())
 					console.log(pair[0] + ', ' + pair[1]);
 			}
 		}
@@ -90,11 +92,17 @@
 <style type="text/css">
 	#stds {
 		display: table;
+		border-collapse:separate;
+		border-spacing:1px;
 	}
 	.std {
 		display: table-cell;
+		border: 1px solid black;
+		border-width: ;
+		border-style: ;
+		border-color: ;
 	}
 	img {
-		width: 200px;
+		width: 300px;
 	}
 </style>
