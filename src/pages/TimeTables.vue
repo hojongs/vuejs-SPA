@@ -46,10 +46,12 @@
 				axios.get(host + '/rest/students')
 				.then(response => {
 					// JSON responses are automatically parsed.
-					this.students = response.data
+					this.students = response.data;
+					console.log(response);
 				})
 				.catch(e => {
-					this.errors.push(e)
+					this.errors.push(e);
+					console.log(e);
 				});
 			},
 			update(data) {
@@ -61,9 +63,12 @@
 				.then(response => {
 					console.log(response);
 					this.init();
+					alert(response.statusText);
 				})
 				.catch(e => {
-					this.errors.push(e)
+					console.log(e);
+					this.errors.push(e);
+					alert(e);
 				});
 			},
 			change_fields_update(event) {
