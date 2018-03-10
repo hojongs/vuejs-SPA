@@ -5,6 +5,7 @@ import Home from './pages/Home.vue'
 import TimeTables from './pages/TimeTables.vue'
 import Posts from './pages/Posts.vue'
 import Post from './pages/Post.vue'
+import Test from './pages/Test.vue'
 
 Vue.use(VueRouter);
 
@@ -12,7 +13,8 @@ const routes = [
   { path: '/home', component: Home },
   { path: '/timetables', component: TimeTables },
   { path: '/posts', component: Posts },
-  { path: '/posts/:id', component: Post }
+  { path: '/posts/:id', component: Post },
+  { path: '/test', component: Test },
 ];
 
 const router = new VueRouter({

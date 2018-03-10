@@ -5,6 +5,7 @@
 			<router-link to="/home">Home</router-link>
 			<router-link to="/timetables">TimeTables</router-link>
 			<router-link to="/posts">Posts</router-link>
+			<router-link to="/test">Test</router-link>
 		</p>
 		<!-- route outlet -->
 		<!-- 라우트와 일치하는 컴포넌트가 여기 렌더링됩니다. -->
