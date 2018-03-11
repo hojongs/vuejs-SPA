@@ -24,7 +24,7 @@
 
 <script>
 	import axios from 'axios';
-	import host from '../host';
+	import host from 'host';
 
 	export default {
 		data() {
