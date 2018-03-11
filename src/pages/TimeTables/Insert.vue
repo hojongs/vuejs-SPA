@@ -1,12 +1,11 @@
 <template>
 	<div>
-		<h2>Update Student TimeTable</h2>
-
-		<div v-for='field in fields_update'>
+		<h2>Insert/Update TimeTable</h2>
+		<div v-for='field in fields'>
 			{{ field.name }} : 
-			<input :name='field.name' :type='field.type' @change='change_fields_update'>
+			<input :name='field.name' :type='field.type' @change='update_data'>
 		</div>
-		<button @click='update(formdata_update)'>button</button>
+		<button @click='put_data(json_data, tb)'>submit</button>
 	</div>
 </template>
 
@@ -17,24 +16,47 @@
 	export default {
 		data() {
 			return {
-				fields_update: [
+				fields: [ // for generation input tag
 					{name: 'name', type: 'text'},
 					{name: 'tb', type: 'file'},
 					{name: 'height', type: 'text'},
 				],
-				formdata_update: new FormData(),
-			}
+				json_data: {}, // of FormData
+				tb: {}, // of FormData
+			};
 		},
 		methods: {
-			update(data) {
+			update_data(event) {
+				var target = event.target;
+				console.log('update_data():', target.value);
+
+				switch (target.type) {
+					case 'text':
+						this.json_data[target.name] = target.value;
+						break;
+					case 'file':
+						var file = target.files[0];
+						this.tb = {
+							'name': target.name,
+							'file': file,
+						};
+						console.log(file, this.tb);
+						break;
+					default:
+						throw new Error('NotImplementedError');
+				}
+			},
+			put_data(json_data, tb) {
 				const config = {
 					headers: {'Content-Type': 'multipart/form-data',},
 				};
+				var formdata = new FormData();
+				formdata.set('json_data', JSON.stringify(json_data));
+				formdata.set(tb.name, tb.file);
 
-				axios.put(host + '/rest/students', data, config)
+				axios.put(host + '/rest/students', formdata, config)
 				.then(response => {
 					console.log(response);
-					this.init();
 					alert(response.statusText);
 				})
 				.catch(e => {
@@ -42,25 +64,6 @@
 					alert(e);
 				});
 			},
-			change_fields_update(event) {
-				var target = event.target;
-
-				switch (target.type) {
-					case 'text':
-					this.formdata_update.append(target.name, target.value);
-					break;
-					case 'file':
-					var file = target.files[0];
-					this.formdata_update.append(target.name, file, file.name);
-					break;
-					default:
-					throw new Error('NotImplementedError');
-				}
-
-				// debug
-				for (var pair of this.formdata_update.entries())
-					console.log(pair[0] + ', ' + pair[1]);
-			}
 		}
 	}
 </script>
